@@ -1,8 +1,8 @@
-import './App.css';
-import { useState, useRef } from 'react';
-import Header from './components/Header';
-import Editor from './components/Editor';
-import List from './components/List';
+import "./App.css";
+import { useState, useRef } from "react";
+import Header from "./components/Header";
+import Editor from "./components/Editor";
+import List from "./components/List";
 
 const mockData = [
   {
@@ -22,7 +22,7 @@ const mockData = [
     isDone: false,
     content: "노래 연습하기",
     date: new Date().getTime(),
-  }
+  },
 ];
 
 function App() {
@@ -35,17 +35,41 @@ function App() {
       isDone: false,
       content: content,
       date: new Date().getTime(),
-    }
+    };
 
     setTodos([newTodo, ...todos]);
-  }
+  };
+
+  const onUpdate = (targetId) => {
+    //id가 일치하는 아이템만 isDone을 바꿔줌
+    //일치하지 않으면 그대로 반환
+
+    // setTodos(todos.map(todo => {
+    //   if(todo.id === targetId){
+    //     return {
+    //       ...todo,
+    //       isDone : !todo.isDone
+    //     };
+    //   }
+    //   return todo;
+    // }))
+
+    setTodos(
+      todos.map((todo) =>
+        todo.id === targetId 
+          ? { ...todo, isDone: !todo.isDone } 
+          : todo,
+      ),
+    );
+  };
+
   return (
-    <div className='App'>
+    <div className="App">
       <Header />
-      <Editor onCreate={onCreate}/>
-      <List />
+      <Editor onCreate={onCreate} />
+      <List todos={todos} onUpdate={onUpdate} />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
