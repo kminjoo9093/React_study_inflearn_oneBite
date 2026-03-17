@@ -1,0 +1,12 @@
+.List{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.List > input{
+  width: 100%;
+  padding: 15px 0;
+  border: none;
+  border-bottom: 1px solid #ddd;
+}
