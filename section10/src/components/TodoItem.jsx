@@ -1,21 +1,35 @@
 import "./TodoItem.css";
+import { memo } from "react";
 
-const TodoItem = ({id, isDone, content, date, onUpdate, onDelete}) => {
-
-  const onChangeCheckBox = ()=>{
+const TodoItem = ({ id, isDone, content, date, onUpdate, onDelete }) => {
+  const onChangeCheckBox = () => {
     onUpdate(id);
   };
 
-  const onClickDeleteButton = ()=>{
+  const onClickDeleteButton = () => {
     onDelete(id);
-  }
+  };
 
-  return <div className="TodoItem">
-    <input onChange={onChangeCheckBox} checked={isDone} type="checkbox"/>
-    <div className="content">{content}</div>
-    <div className="date">{new Date(date).toLocaleDateString()}</div>
-    <button onClick={onClickDeleteButton}>삭제</button>
-  </div>
-}
+  return (
+    <div className="TodoItem">
+      <input onChange={onChangeCheckBox} checked={isDone} type="checkbox" />
+      <div className="content">{content}</div>
+      <div className="date">{new Date(date).toLocaleDateString()}</div>
+      <button onClick={onClickDeleteButton}>삭제</button>
+    </div>
+  );
+};
 
-export default TodoItem;
+//고차 컴포넌트
+export default memo(TodoItem, (prevProps, nextProps) => {
+  // 반환값에 따라, props가 바뀌었는지 안바뀌었는지 판단
+  // True => props가 바뀌지 않음 -> 리렌더링 x
+  // false => props가 바뀜 -> 리렌더링 o
+
+  if (prevProps.id !== nextProps.id) return false;
+  if (prevProps.isDone !== nextProps.isDone) return false;
+  if (prevProps.content !== nextProps.content) return false;
+  if (prevProps.date !== nextProps.date) return false;
+
+  return true;
+});
