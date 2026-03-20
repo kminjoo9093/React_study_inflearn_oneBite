@@ -21,7 +21,7 @@ function App() {
     console.log("mount");
   }, []);
 
-  //2. 업데이트(마운트시, 컴포넌트 리렌더링) - deps X
+  //2. 업데이트(deps X -> 마운트시, 컴포넌트 리렌더링)
   // useEffect(()=>{
   //   console.log("update");
   // });
