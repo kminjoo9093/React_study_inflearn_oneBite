@@ -4,10 +4,12 @@ import Button from "../components/Button";
 import Viewer from "../components/Viewer";
 import useDiary from "../hooks/useDiary";
 import { getStringedDate } from "../util/get-stringed-date";
+import usePageTitle from "../hooks/usePageTitle";
 
 const Diary = () => {
   const param = useParams();
   const nav = useNavigate();
+  usePageTitle(`${param.id}번 일기`);
 
   const curDiaryItem = useDiary(param.id);
 
@@ -15,7 +17,7 @@ const Diary = () => {
     return <div>데이터 로딩중...</div>;
   }
 
-  const {createdDate, emotionId, content} = curDiaryItem;
+  const { createdDate, emotionId, content } = curDiaryItem;
   const title = getStringedDate(new Date(createdDate));
 
   return (
@@ -27,7 +29,7 @@ const Diary = () => {
           <Button onClick={() => nav(`/edit/${param.id}`)} text={"수정하기"} />
         }
       />
-      <Viewer emotionId={emotionId} content={content}/>
+      <Viewer emotionId={emotionId} content={content} />
     </div>
   );
 };
